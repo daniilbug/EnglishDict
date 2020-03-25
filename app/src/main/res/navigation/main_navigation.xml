@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
+    app:startDestination="@id/savedDictionaryFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/definitionFragment"
+        android:name="com.github.daniilbug.englishdict.view.DefinitionFragment"
+        android:label="DefinitionFragment"
+        tools:layout="@layout/fragment_definition"/>
+
+    <fragment
+        android:id="@+id/savedDictionaryFragment"
+        android:name="com.github.daniilbug.englishdict.view.SavedDictionaryFragment"
+        android:label="SavedDictionaryFragment"
+        tools:layout="@layout/fragment_saved_dict">
+        <action
+            android:id="@+id/findWordDefinition"
+            app:destination="@id/definitionFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit">
+            <argument
+                android:name="word"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+</navigation>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EnglishDict</string>
+    <string name="find">find</string>
+    <string name="find_new_word">Let\'s find some new word! :)</string>
+    <string name="something_wrong">Something went wrong..</string>
+    <string name="definition_does_not_exist">There isn\'t definition for this word.\n Are you sure you didn\'t make a mistake?</string>
+    <string name="empty_list">Word list is empty. Maybe you want to add some word?</string>
+    <string name="internet_error">You don\'t have the internet connection now</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="8dp">
+
+    <TextView
+        android:id="@+id/newWordDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/find_new_word"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/findWordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginHorizontal="16dp"
+        android:lines="1"
+        android:layout_marginTop="16dp"
+        android:labelFor="@id/newWordDialogTitle"
+        tools:ignore="LabelFor" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:id="@+id/findButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/find"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="64dp"
+        android:enabled="false" />
+</LinearLayout>
