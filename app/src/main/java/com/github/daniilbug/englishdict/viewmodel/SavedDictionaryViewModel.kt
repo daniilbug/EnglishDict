@@ -38,12 +38,13 @@ class SavedDictionaryViewModel(appComponent: AppComponent) : ViewModel() {
         appComponent.inject(this)
         state = searchChannel.asFlow()
             .onStart { emit("") }
+            .debounce(500L)
             .flatMapLatest { query -> repository.getSavedDefinitions(query).map { query to it } }
             .map { queryAndWords -> val (query, words) = queryAndWords; stateFromWordList(words, query) }
             .catch { ex -> emit(stateFromError(ex)) }
             .onStart { emit(SavedDictionaryState.Loading) }
             .distinctUntilChanged()
-            .asLiveData()
+            .asLiveData(viewModelScope.coroutineContext)
     }
 
     private fun stateFromError(ex: Throwable) = SavedDictionaryState.Error(stringResolver.getString(something_wrong))

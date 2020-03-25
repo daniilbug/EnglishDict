@@ -16,15 +16,12 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @ExperimentalCoroutinesApi
 @Module(includes = [NetworkModule::class])
-class PersistentModule(private val context: Context) {
+class PersistentModule(context: Context) {
+
+    private val db = Room.databaseBuilder(context, SavedDictionaryDb::class.java, "saved_dict.db").build()
 
     @Provides
-    fun savedDictionaryDb(): SavedDictionaryDb {
-        return Room.databaseBuilder(context, SavedDictionaryDb::class.java, "saved_dict.db").build()
-    }
-
-    @Provides
-    fun savedDictionaryDAO(db: SavedDictionaryDb): SavedDictionaryDAO {
+    fun savedDictionaryDAO(): SavedDictionaryDAO {
         return db.savedDictionaryDao()
     }
 

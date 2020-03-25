@@ -46,7 +46,6 @@ class SavedDictionaryFragment: Fragment(R.layout.fragment_saved_dict) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.state.observe(viewLifecycleOwner) { state -> setState(state) }
         view.newWordButton.setOnClickListener { findNewWord() }
         historyAdapter = SavedDictAdapter(clickCallback = { historyWord -> navigateToDefinition(historyWord.word)})
         view.historyRecycler.adapter = historyAdapter
@@ -55,6 +54,11 @@ class SavedDictionaryFragment: Fragment(R.layout.fragment_saved_dict) {
         )
         touchHelper.attachToRecyclerView(view.historyRecycler)
         view.initSearch()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.state.observe(viewLifecycleOwner) { state -> setState(state) }
     }
 
     private fun findNewWord() = activity?.let {
@@ -85,13 +89,9 @@ class SavedDictionaryFragment: Fragment(R.layout.fragment_saved_dict) {
     )
 
     private fun View.initSearch() = lifecycleScope.launch {
-        //TODO()
-        searchView.asFlow()
-            .debounce(500L)
-            .distinctUntilChanged()
-            .collectLatest { query ->
-                viewModel.postEvent(SavedDictionaryEvent.Search(query))
-            }
+        searchView.asFlow().collectLatest { query ->
+            viewModel.postEvent(SavedDictionaryEvent.Search(query))
+        }
     }
 
     private fun View.showMessageStub(message: String, @DrawableRes imageId: Int, showAddButton: Boolean) {

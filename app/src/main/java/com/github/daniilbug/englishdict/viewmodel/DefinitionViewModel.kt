@@ -3,6 +3,7 @@ package com.github.daniilbug.englishdict.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.github.daniilbug.englishdict.R.string.*
 import com.github.daniilbug.englishdict.di.AppComponent
 import com.github.daniilbug.englishdict.model.SavedDictionaryRepository
@@ -35,7 +36,7 @@ class DefinitionViewModel(appComponent: AppComponent, word: String): ViewModel()
             .map { definition -> DefinitionState.Definition(definition) as DefinitionState }
             .catch { ex -> emit(eventFromError(ex)) }
             .onStart { emit(DefinitionState.Loading) }
-            .asLiveData()
+            .asLiveData(viewModelScope.coroutineContext)
     }
 
     private fun eventFromError(ex: Throwable) = when(ex) {

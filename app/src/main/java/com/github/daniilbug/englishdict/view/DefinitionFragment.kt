@@ -45,7 +45,6 @@ class DefinitionFragment: Fragment(R.layout.fragment_definition) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.state.observe(viewLifecycleOwner) { state -> setState(state) }
         view.definitionsRecycler.adapter = adapter
     }
 
@@ -54,6 +53,7 @@ class DefinitionFragment: Fragment(R.layout.fragment_definition) {
         val activity = this.activity ?: return
         textToSpeech = TextToSpeech(activity) { }
         textToSpeech.language = Locale.UK
+        viewModel.state.observe(viewLifecycleOwner) { state -> setState(state) }
     }
 
     private fun setState(state: DefinitionState) {
